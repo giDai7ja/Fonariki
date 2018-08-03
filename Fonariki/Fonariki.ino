@@ -25,6 +25,9 @@ byte TurnDelay;
 byte StepAuto = 0;
 unsigned long AutoTime;
 
+byte StepDRL = 0;
+byte DRLPWM = 0;
+unsigned long DRLTime;
 
 byte TURN_0[64] = {
   0b00000000, 0b00000001,
@@ -89,13 +92,14 @@ void setup() {
   digitalWrite(PWM0, LOW);
   digitalWrite(PWM1, LOW);
 
-  EEPROM.write(0, 20); // Удалить в релизе
   TurnDelay = EEPROM.read(0);
+  if ( TurnDelay == 255 ) TurnDelay = 20;
 }
 
 void loop() {
   TaskTurn();
   TaskAuto();
+  TaskDRL();
 }
 
 void SendLED( byte A, byte D) {
@@ -150,12 +154,51 @@ void TaskAuto() {
       break;
     case 20:
       if (digitalRead(TURN) == LOW) {
-        TurnDelay = (((millis() - AutoTime) / 42) + TurnDelay) / 2;
+        TurnDelay += (((millis() - AutoTime) >> 6 ) - TurnDelay) >> 1;
         AutoTime = millis();
         StepAuto = 10;
       }
-      else if ((AutoTime + 2500) < millis() ) {
-        StepAuto = 0;
+      else if ((AutoTime + 2000) < millis() ) {
+        StepAuto = 30;
+      }
+      break;
+    case 30:
+      if (TurnDelay != (EEPROM.read(0))) EEPROM.write(0, TurnDelay);
+      StepAuto = 0;
+      break;
+  }
+}
+
+void TaskDRL() {
+  switch (StepDRL) {
+    case 0:
+      if ((digitalRead(DRL) == LOW) && (StepAuto == 0) ) {
+        //        DRLPWM = 250;
+        //        digitalWrite(PWM1, HIGH);
+        SendLED(DRL0, 0xFF);
+        SendLED(DRL1, 0xFF);
+        StepDRL = 20;
+        //        DRLTime = millis() + 500;
+      }
+      break;
+    case 10:
+      //      if (DRLPWM > 0) {
+      //        if ( DRLTime < millis()) {
+      //          analogWrite(PWM1, DRLPWM);
+      //          DRLTime = millis() + 10;
+      //          DRLPWM--;
+      //        }
+      //      }
+      //      else {
+      //        StepDRL = 20;
+      //      }
+      break;
+
+    case 20:
+      if ((digitalRead(DRL) == HIGH) || (StepAuto != 0) ) {
+        SendLED(DRL0, 0x00);
+        SendLED(DRL1, 0x00);
+        StepDRL = 0;
       }
       break;
   }
