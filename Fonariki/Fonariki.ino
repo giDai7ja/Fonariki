@@ -29,6 +29,8 @@ byte StepDRL = 0;
 byte DRLPWM = 0;
 unsigned long DRLTime;
 
+byte StepPL = 0;
+
 byte TURN_0[64] = {
   0b00000000, 0b00000001,
   0b00000000, 0b00000011,
@@ -100,6 +102,7 @@ void loop() {
   TaskTurn();
   TaskAuto();
   TaskDRL();
+  TaskPL();
 }
 
 void SendLED( byte A, byte D) {
@@ -199,6 +202,25 @@ void TaskDRL() {
         SendLED(DRL0, 0x00);
         SendLED(DRL1, 0x00);
         StepDRL = 0;
+      }
+      break;
+  }
+}
+
+void TaskPL() {
+  switch (StepPL) {
+
+    case 0:
+      if (digitalRead(PL) == LOW) {
+        analogWrite(PWM1, 223);
+        StepPL = 10;
+      }
+      break;
+
+    case 10:
+      if (digitalRead(PL) == HIGH) {
+        digitalWrite(PWM1, LOW);
+        StepPL = 0;
       }
       break;
   }
