@@ -26,8 +26,8 @@ byte StepAuto = 0;
 unsigned long AutoTime;
 
 byte StepDRL = 0;
-byte DRLPWM = 0;
-byte RealPWM = 0;
+byte DRLPWM = 255;
+byte RealPWM = 255;
 unsigned long DRLTime;
 
 byte StepPL = 0;
@@ -108,6 +108,7 @@ void setup() {
 
   TurnDelay = EEPROM.read(0);
   if ( TurnDelay == 255 ) TurnDelay = 20;
+  DRLTime = millis() + 100;
 }
 
 void loop() {
