@@ -27,11 +27,13 @@ unsigned long AutoTime;
 
 byte StepDRL = 0;
 byte DRLPWM = 0;
+byte RealPWM = 0;
 unsigned long DRLTime;
 
 byte StepPL = 0;
+unsigned long PWMTime = 0;
 
-byte TURN_0[64] = {
+byte TURN_0[80] = {
   0b00000000, 0b00000001,
   0b00000000, 0b00000011,
   0b00000000, 0b00000111,
@@ -48,6 +50,16 @@ byte TURN_0[64] = {
   0b00111111, 0b11111111,
   0b01111111, 0b11111111,
   0b11111111, 0b11111111,
+
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+  0b11111111, 0b11111111,
+
   0b11111111, 0b11111110,
   0b11111111, 0b11111100,
   0b11111111, 0b11111000,
@@ -102,7 +114,7 @@ void loop() {
   TaskTurn();
   TaskAuto();
   TaskDRL();
-  TaskPL();
+  TaskPWM();
 }
 
 void SendLED( byte A, byte D) {
@@ -123,7 +135,7 @@ void TaskTurn() {
 
     case 10:
       if (TurnTime <= millis()) {
-        if (TurnIndex < 32) {
+        if (TurnIndex < 40) {
           TurnTime = millis() + TurnDelay;
           SendLED(P0, TURN_0[TurnIndex * 2 + 1]);
           SendLED(P1, TURN_0[TurnIndex * 2]);
@@ -145,7 +157,7 @@ void TaskTurn() {
 void TaskAuto() {
   switch (StepAuto) {
     case 0:
-      if (digitalRead(TURN) == LOW) {
+      if (StepTurn != 0) {
         AutoTime = millis();
         StepAuto = 10;
       }
@@ -173,56 +185,78 @@ void TaskAuto() {
 }
 
 void TaskDRL() {
-  switch (StepDRL) {
-    case 0:
-      if ((digitalRead(DRL) == LOW) && (StepAuto == 0) ) {
-        //        DRLPWM = 250;
-        //        digitalWrite(PWM1, HIGH);
+  if (StepAuto != 0 ) {
+    digitalWrite(PWM1, HIGH);
+    DRLPWM = 255;
+    RealPWM = 255;
+  }
+  else {
+    if (digitalRead(PL) == LOW) DRLPWM = 223;
+    else {
+      if (digitalRead(DRL) == LOW) DRLPWM = 0;
+      else DRLPWM = 255;
+    }
+  }
+
+  /*  switch (StepDRL) {
+      case 0:
+        if ((digitalRead(DRL) == LOW) && (StepAuto == 0) ) {
+          //        DRLPWM = 250;
+          //        digitalWrite(PWM1, HIGH);
+          SendLED(DRL0, 0xFF);
+          SendLED(DRL1, 0xFF);
+          StepDRL = 20;
+          //        DRLTime = millis() + 500;
+        }
+        break;
+      case 10:
+        //      if (DRLPWM > 0) {
+        //        if ( DRLTime < millis()) {
+        //          analogWrite(PWM1, DRLPWM);
+        //          DRLTime = millis() + 10;
+        //          DRLPWM--;
+        //        }
+        //      }
+        //      else {
+        //        StepDRL = 20;
+        //      }
+        break;
+
+      case 20:
+        if ((digitalRead(DRL) == HIGH) || (StepAuto != 0) ) {
+          SendLED(DRL0, 0x00);
+          SendLED(DRL1, 0x00);
+          StepDRL = 0;
+        }
+        break;
+    }
+  */
+}
+
+void TaskPWM() {
+  if ( ( RealPWM != DRLPWM ) && ( PWMTime < millis()) ) {
+    if (RealPWM > DRLPWM) RealPWM--;
+    else RealPWM++;
+
+    if (RealPWM == 255) {
+      digitalWrite(PWM1, HIGH);
+      SendLED(DRL0, 0x00);
+      SendLED(DRL1, 0x00);
+    }
+    else {
+      if (RealPWM == 0 ) {
+        digitalWrite(PWM1, LOW);
         SendLED(DRL0, 0xFF);
         SendLED(DRL1, 0xFF);
-        StepDRL = 20;
-        //        DRLTime = millis() + 500;
       }
-      break;
-    case 10:
-      //      if (DRLPWM > 0) {
-      //        if ( DRLTime < millis()) {
-      //          analogWrite(PWM1, DRLPWM);
-      //          DRLTime = millis() + 10;
-      //          DRLPWM--;
-      //        }
-      //      }
-      //      else {
-      //        StepDRL = 20;
-      //      }
-      break;
-
-    case 20:
-      if ((digitalRead(DRL) == HIGH) || (StepAuto != 0) ) {
-        SendLED(DRL0, 0x00);
-        SendLED(DRL1, 0x00);
-        StepDRL = 0;
+      else {
+        analogWrite(PWM1, RealPWM);
+        SendLED(DRL0, 0xFF);
+        SendLED(DRL1, 0xFF);
       }
-      break;
+    }
+    PWMTime = millis() + 1;
   }
 }
 
-void TaskPL() {
-  switch (StepPL) {
-
-    case 0:
-      if (digitalRead(PL) == LOW) {
-        analogWrite(PWM1, 223);
-        StepPL = 10;
-      }
-      break;
-
-    case 10:
-      if (digitalRead(PL) == HIGH) {
-        digitalWrite(PWM1, LOW);
-        StepPL = 0;
-      }
-      break;
-  }
-}
 
