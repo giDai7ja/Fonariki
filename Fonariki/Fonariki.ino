@@ -108,7 +108,7 @@ void setup() {
 
   TurnDelay = EEPROM.read(0);
   if ( TurnDelay == 255 ) TurnDelay = 20;
-  DRLTime = millis() + 100;
+  DRLTime = millis() + 200;
 }
 
 void loop() {
