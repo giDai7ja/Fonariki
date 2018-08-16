@@ -148,9 +148,10 @@ void TaskTurn() {
   switch (StepTurn) {
     case 0:
       if (digitalRead(TURN) == LOW) {
-        StepTurn = 10;
-        TurnIndex = 0;
         TurnTime = millis();
+        TurnIndex = 0;
+        if ( (StepStrobe != 0) || (StepShow != 0 ) ) OutputReset();
+        StepTurn = 10;
       }
       break;
 
@@ -247,7 +248,6 @@ void TaskPWM() {
             analogWrite(PWM1, RealPWM );
         }
         PWMTime++;
-        //        PWMTime += 10;
       }
       break;
   }
@@ -266,6 +266,8 @@ void TaskEffects() {
   else {
     // Возвращаем всё как было
     StepStrobe = 0;
+    TimeStrobe = 0;
+    StepShow = 0;
   }
 }
 
