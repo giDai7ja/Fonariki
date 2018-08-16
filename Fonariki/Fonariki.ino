@@ -1,3 +1,5 @@
+// Fuses OK (E:FD, H:DA, L:FF)
+
 #include <SPI.h>
 #include <EEPROM.h>
 
@@ -14,8 +16,13 @@
 #define STROBE 8
 #define SHOW 9
 
+#define StrobH 10
+#define StrobL 90
+#define StrobP 1000
 
 byte F[4] = {P0, P1, DRL0, DRL1};
+
+//double tmp;
 
 byte StepTurn = 0;
 byte TurnIndex = 0;
@@ -28,10 +35,18 @@ unsigned long AutoTime;
 byte StepDRL = 0;
 byte DRLPWM = 255;
 byte RealPWM = 255;
-unsigned long DRLTime;
+unsigned long DRLTime = 0;
 
-byte StepPL = 0;
+byte StepPWM = 0;
 unsigned long PWMTime = 0;
+
+byte StepEff = 0;
+
+byte StepStrobe = 0;
+unsigned long TimeStrobe = 0;
+
+byte StepShow = 0;
+unsigned long ShowTime = 0;
 
 byte TURN_0[80] = {
   0b00000000, 0b00000001,
@@ -101,10 +116,13 @@ void setup() {
 
   digitalWrite(P0, HIGH);
   digitalWrite(P1, HIGH);
+
+  SPI.transfer(0xFF);
+
   digitalWrite(DRL0, HIGH);
   digitalWrite(DRL1, HIGH);
+
   digitalWrite(PWM0, LOW);
-  digitalWrite(PWM1, LOW);
 
   TurnDelay = EEPROM.read(0);
   if ( TurnDelay == 255 ) TurnDelay = 20;
@@ -116,8 +134,10 @@ void loop() {
   TaskAuto();
   TaskDRL();
   TaskPWM();
+  TaskEffects();
 }
 
+// Подпрограмма записи в регистр
 void SendLED( byte A, byte D) {
   digitalWrite(A, LOW);
   SPI.transfer(D);
@@ -137,7 +157,8 @@ void TaskTurn() {
     case 10:
       if (TurnTime <= millis()) {
         if (TurnIndex < 40) {
-          TurnTime = millis() + TurnDelay;
+          //          TurnTime = millis() + TurnDelay;
+          TurnTime += TurnDelay;
           SendLED(P0, TURN_0[TurnIndex * 2 + 1]);
           SendLED(P1, TURN_0[TurnIndex * 2]);
           TurnIndex++;
@@ -198,66 +219,123 @@ void TaskDRL() {
       else DRLPWM = 255;
     }
   }
-
-  /*  switch (StepDRL) {
-      case 0:
-        if ((digitalRead(DRL) == LOW) && (StepAuto == 0) ) {
-          //        DRLPWM = 250;
-          //        digitalWrite(PWM1, HIGH);
-          SendLED(DRL0, 0xFF);
-          SendLED(DRL1, 0xFF);
-          StepDRL = 20;
-          //        DRLTime = millis() + 500;
-        }
-        break;
-      case 10:
-        //      if (DRLPWM > 0) {
-        //        if ( DRLTime < millis()) {
-        //          analogWrite(PWM1, DRLPWM);
-        //          DRLTime = millis() + 10;
-        //          DRLPWM--;
-        //        }
-        //      }
-        //      else {
-        //        StepDRL = 20;
-        //      }
-        break;
-
-      case 20:
-        if ((digitalRead(DRL) == HIGH) || (StepAuto != 0) ) {
-          SendLED(DRL0, 0x00);
-          SendLED(DRL1, 0x00);
-          StepDRL = 0;
-        }
-        break;
-    }
-  */
 }
 
 void TaskPWM() {
-  if ( ( RealPWM != DRLPWM ) && ( PWMTime < millis()) ) {
-    if (RealPWM > DRLPWM) RealPWM--;
-    else RealPWM++;
+  switch (StepPWM) {
+    case 0: if ( RealPWM != DRLPWM ) {
+        PWMTime = millis();
+        StepPWM = 10;
+      }
+      break;
 
-    if (RealPWM == 255) {
-      digitalWrite(PWM1, HIGH);
-      SendLED(DRL0, 0x00);
-      SendLED(DRL1, 0x00);
-    }
-    else {
-      if (RealPWM == 0 ) {
-        digitalWrite(PWM1, LOW);
-        SendLED(DRL0, 0xFF);
-        SendLED(DRL1, 0xFF);
+    case 10:
+      if ( PWMTime < millis()) {
+        if (RealPWM > DRLPWM) RealPWM--;
+        else RealPWM++;
+
+        if ( RealPWM == DRLPWM ) StepPWM = 0;
+
+        switch (RealPWM) {
+          case 255: digitalWrite(PWM1, HIGH);
+            break;
+
+          case 0: digitalWrite(PWM1, LOW);
+            break;
+
+          default:
+            analogWrite(PWM1, RealPWM );
+        }
+        PWMTime++;
+        //        PWMTime += 10;
       }
-      else {
-        analogWrite(PWM1, RealPWM);
-        SendLED(DRL0, 0xFF);
-        SendLED(DRL1, 0xFF);
-      }
-    }
-    PWMTime = millis() + 1;
+      break;
   }
 }
 
+void TaskEffects() {
+  // Еффекты. Работают только если остальное не работает
+  if ((StepAuto == 0) && (digitalRead(PL) == HIGH) && (digitalRead(DRL) == HIGH)) {
+    if (digitalRead(STROBE) == LOW || StepStrobe != 0 ) TaskStrobe();
+    else {
+      if (digitalRead(SHOW) == LOW ) {
+        TaskShow();
+      }
+    }
+  }
+  else {
+    // Возвращаем всё как было
+    StepStrobe = 0;
+  }
+}
+
+void TaskStrobe() {
+  if (TimeStrobe < millis()) {
+    switch (StepStrobe) {
+      case 0:
+        StepStrobe = 10;
+        TimeStrobe = millis();
+        break;
+
+      case 10:
+        digitalWrite(PWM1, LOW);
+        TimeStrobe += StrobH;
+        StepStrobe = 20;
+        break;
+
+      case 20:
+        digitalWrite(PWM1, HIGH);
+        TimeStrobe += StrobL;
+        StepStrobe = 30;
+        break;
+
+      case 30:
+        digitalWrite(PWM1, LOW);
+        TimeStrobe += StrobH;
+        StepStrobe = 40;
+        break;
+
+      case 40:
+        digitalWrite(PWM1, HIGH);
+        TimeStrobe += StrobL;
+        StepStrobe = 50;
+        break;
+
+      case 50:
+        digitalWrite(PWM1, LOW);
+        TimeStrobe += StrobH;
+        StepStrobe = 60;
+        break;
+
+      case 60:
+        digitalWrite(PWM1, HIGH);
+        TimeStrobe += StrobP;
+        StepStrobe = 70;
+        break;
+
+      case 70:
+        StepStrobe = 0;
+        break;
+
+      default:
+        StepStrobe = 0;
+        break;
+    }
+  }
+}
+
+
+void TaskShow() {
+
+}
+
+void OutputReset() {
+  digitalWrite(PWM0, HIGH);
+  digitalWrite(PWM1, HIGH);
+  SendLED(P0, 0);
+  SendLED(P1, 0);
+  SendLED(DRL0, 0xFF);
+  SendLED(DRL0, 0xFF);
+  digitalWrite(PWM0, LOW);
+}
 
