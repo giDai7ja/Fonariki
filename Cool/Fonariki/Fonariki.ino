@@ -94,7 +94,7 @@ void SendLED( byte A, byte D) {
 
 
 // ---------- Эффект поворотника
-byte TURN_0[96] = {
+const byte TURN_0[96] PROGMEM = {
   0b00000000, 0b00000001,
   0b00000000, 0b00000011,
   0b00000000, 0b00000111,
