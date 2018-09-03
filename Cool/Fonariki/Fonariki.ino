@@ -164,8 +164,9 @@ void TaskTurn() {
       if (TurnTime <= millis()) {
         if (TurnIndex < 48) {
           TurnTime += TurnDelay;
-          SendLED(P0, TURN_0[TurnIndex * 2 + 1]);
-          SendLED(P1, TURN_0[TurnIndex * 2]);
+
+          SendLED(P0, pgm_read_byte_near(TURN_0 + (TurnIndex * 2 + 1)));
+          SendLED(P1, pgm_read_byte_near(TURN_0 + (TurnIndex * 2)));
           TurnIndex++;
         }
         else {
@@ -204,10 +205,9 @@ void TaskAuto() {
     case 20:
       if (digitalRead(TURN) == LOW) {
         TurnDelay += (((millis() - AutoTime) / 64 ) - TurnDelay) / 2;
-        //        TurnDelay += (((millis() - AutoTime) / 64) - TurnDelay) >> 1;
         AutoTime = millis();
         StepAuto = 10;
-        //        Serial.println(TurnDelay);
+        //Serial.println(TurnDelay);
       }
       else if ((AutoTime + 3000) < millis() ) {
         StepAuto = 30;
