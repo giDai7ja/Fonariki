@@ -26,6 +26,7 @@ byte TurnDelay;
 byte StepStrobe = 0;
 byte StepShow = 0;
 byte StepPWM = 0;
+byte StepDemo = 0;
 
 unsigned long DRLTime = 0;
 unsigned long TimeStrobe = 0;
@@ -292,9 +293,7 @@ void TaskEffects() {
   if ((StepAuto == 0) && (RealPWM == 255)) {
     if (digitalRead(STROBE) == LOW || StepStrobe != 0 ) TaskStrobe();
     else {
-      if (digitalRead(SHOW) == LOW ) {
-        TaskShow();
-      }
+      if (digitalRead(SHOW) == LOW || StepDemo != 0) TaskShow();
     }
   }
   else {
@@ -302,6 +301,7 @@ void TaskEffects() {
     StepStrobe = 0;
     TimeStrobe = 0;
     StepShow = 0;
+   // OutputReset();
   }
 }
 // ------ Конец эффектов
@@ -370,7 +370,19 @@ void TaskStrobe() {
 // ----- Демо режим
 unsigned long ShowTime = 0;
 void TaskShow() {
+  switch (StepShow) {
+    case 0:
+      if ( Demo_0() != 0 ) StepShow = 10;
 
+      break;
+
+    case 255:
+      if ( Demo_1() != 0 ) StepShow = 0;
+
+    default:
+      StepShow = 0;
+      break;
+  }
 }
 // ----- Конец демо
 
@@ -387,3 +399,62 @@ void OutputReset() {
   digitalWrite(PWM0, LOW);
 }
 // ----- Конец сброса
+
+
+
+byte DemoIndex0 = 0;
+unsigned long DemoTime = 0;
+#define DemoDelay 50;
+
+// ----- Эффект 0
+byte Demo_0 () {
+  switch (StepDemo) {
+
+    case 0:
+      DemoTime = millis() + DemoDelay;
+      DemoIndex0 = 0;
+      digitalWrite(PWM0, LOW);
+      digitalWrite(PWM1, LOW);
+      StepDemo = 10;
+      break;
+
+    case 10:
+      if (DemoTime < millis()) {
+        SendLED(P0, DemoIndex0);
+        SendLED(P1, DemoIndex0);
+        SendLED(DRL0, DemoIndex0);
+        SendLED(DRL1, DemoIndex0);
+
+        DemoIndex0++;
+        DemoTime += DemoDelay;
+        if (DemoIndex0 == 255) {
+          DemoIndex0 = 0;
+          StepDemo = 255;
+        }
+      }
+      break;
+
+    default:
+      StepDemo = 0;
+      return 1;
+      break;
+  }
+  return 0;
+}
+// ----- Конец эффекта 0
+
+
+
+// ----- Эффект 1
+byte Demo_1 () {
+  switch (StepDemo) {
+    case 0:
+      break;
+
+    default:
+      StepDemo = 0;
+      break;
+  }
+  return 1;
+}
+// ----- Конец эффекта 1
