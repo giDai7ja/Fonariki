@@ -7,12 +7,18 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/eeprom.h>
 
 //#define F_CPU 8000000UL
+unsigned char D1 EEMEM;
 
-unsigned long int TIK;
+unsigned long int SYS_TIK;
+unsigned long int TurnTime;
 
-const char TURN[64] = {
+unsigned char StepTurn = 0;
+unsigned char TurnIndex = 0;
+
+const char turn[64] = {
 	0b00000000, 0b00000001,
 	0b00000000, 0b00000011,
 	0b00000000, 0b00000111,
@@ -48,16 +54,16 @@ const char TURN[64] = {
 };
 
 ISR(TIMER0_OVF_vect){
-	TIK++;
+	SYS_TIK++;
 }
 
-
-
-
+void Effect(void);
+void AutoAdjust(void);
 
 
 int main(void)
 {
+	unsigned char d = eeprom_read_byte(&D1);
 	PORTB = 0x00;
 	PORTD = 0x00;
 	DDRB = 0xff;  // PORTB as OUTPUT
@@ -72,7 +78,32 @@ int main(void)
 	
 	while (1)
 	{
-		
+		Effect();
+		AutoAdjust();
 	}
 }
 
+void Effect(void)
+{
+	switch(StepTurn)
+	{
+		case 0:
+		StepTurn=1;
+		break;
+		
+		case 1:
+		StepTurn=0;
+		break;
+		
+		default:
+		StepTurn=0;
+	}
+	return;
+}
+
+void AutoAdjust(void)
+{
+	
+	
+	return;
+}

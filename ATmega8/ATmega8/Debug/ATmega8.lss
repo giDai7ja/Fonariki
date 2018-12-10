@@ -3,31 +3,33 @@ ATmega8.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000c2  00000000  00000000  00000074  2**1
+  0 .text         000000da  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  00000136  2**0
+  1 .data         00000000  00800060  00800060  0000016f  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000004  00800060  00800060  00000136  2**0
+  2 .bss          00000009  00800060  00800060  0000016e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000136  2**0
+  3 .eeprom       00000001  00810000  00810000  0000016e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .comment      00000030  00000000  00000000  0000016f  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000168  2**2
+  5 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001a0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000028  00000000  00000000  000001a4  2**0
+  6 .debug_aranges 00000038  00000000  00000000  000001dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000576  00000000  00000000  000001cc  2**0
+  7 .debug_info   00000600  00000000  00000000  00000214  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000004f7  00000000  00000000  00000742  2**0
+  8 .debug_abbrev 00000529  00000000  00000000  00000814  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000001ea  00000000  00000000  00000c39  2**0
+  9 .debug_line   00000229  00000000  00000000  00000d3d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000054  00000000  00000000  00000e24  2**2
+ 10 .debug_frame  00000074  00000000  00000000  00000f68  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000002ce  00000000  00000000  00000e78  2**0
+ 11 .debug_str    000002ff  00000000  00000000  00000fdc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000063  00000000  00000000  00001146  2**0
+ 12 .debug_loc    00000063  00000000  00000000  000012db  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000018  00000000  00000000  000011a9  2**0
+ 13 .debug_ranges 00000028  00000000  00000000  0000133e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +67,7 @@ Disassembly of section .text:
   32:	10 e0       	ldi	r17, 0x00	; 0
   34:	a0 e6       	ldi	r26, 0x60	; 96
   36:	b0 e0       	ldi	r27, 0x00	; 0
-  38:	e2 ec       	ldi	r30, 0xC2	; 194
+  38:	ea ed       	ldi	r30, 0xDA	; 218
   3a:	f0 e0       	ldi	r31, 0x00	; 0
   3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
   3e:	05 90       	lpm	r0, Z+
@@ -84,11 +86,11 @@ Disassembly of section .text:
   50:	1d 92       	st	X+, r1
 
 00000052 <.do_clear_bss_start>:
-  52:	a4 36       	cpi	r26, 0x64	; 100
+  52:	a9 36       	cpi	r26, 0x69	; 105
   54:	b2 07       	cpc	r27, r18
   56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
-  58:	27 d0       	rcall	.+78     	; 0xa8 <main>
-  5a:	31 c0       	rjmp	.+98     	; 0xbe <_exit>
+  58:	32 d0       	rcall	.+100    	; 0xbe <main>
+  5a:	3d c0       	rjmp	.+122    	; 0xd6 <_exit>
 
 0000005c <__bad_interrupt>:
   5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
@@ -109,18 +111,18 @@ ISR(TIMER0_OVF_vect){
   6a:	9f 93       	push	r25
   6c:	af 93       	push	r26
   6e:	bf 93       	push	r27
-	TIK++;
-  70:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
-  74:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__data_end+0x1>
-  78:	a0 91 62 00 	lds	r26, 0x0062	; 0x800062 <__data_end+0x2>
-  7c:	b0 91 63 00 	lds	r27, 0x0063	; 0x800063 <__data_end+0x3>
+	SYS_TIK++;
+  70:	80 91 65 00 	lds	r24, 0x0065	; 0x800065 <SYS_TIK>
+  74:	90 91 66 00 	lds	r25, 0x0066	; 0x800066 <SYS_TIK+0x1>
+  78:	a0 91 67 00 	lds	r26, 0x0067	; 0x800067 <SYS_TIK+0x2>
+  7c:	b0 91 68 00 	lds	r27, 0x0068	; 0x800068 <SYS_TIK+0x3>
   80:	01 96       	adiw	r24, 0x01	; 1
   82:	a1 1d       	adc	r26, r1
   84:	b1 1d       	adc	r27, r1
-  86:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
-  8a:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_end+0x1>
-  8e:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__data_end+0x2>
-  92:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__data_end+0x3>
+  86:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <SYS_TIK>
+  8a:	90 93 66 00 	sts	0x0066, r25	; 0x800066 <SYS_TIK+0x1>
+  8e:	a0 93 67 00 	sts	0x0067, r26	; 0x800067 <SYS_TIK+0x2>
+  92:	b0 93 68 00 	sts	0x0068, r27	; 0x800068 <SYS_TIK+0x3>
 }
   96:	bf 91       	pop	r27
   98:	af 91       	pop	r26
@@ -132,37 +134,70 @@ ISR(TIMER0_OVF_vect){
   a4:	1f 90       	pop	r1
   a6:	18 95       	reti
 
-000000a8 <main>:
+000000a8 <Effect>:
+	}
+}
 
+void Effect(void)
+{
+	switch(StepTurn)
+  a8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
+  ac:	88 23       	and	r24, r24
+  ae:	19 f0       	breq	.+6      	; 0xb6 <Effect+0xe>
+		case 0:
+		StepTurn=1;
+		break;
+		
+		case 1:
+		StepTurn=0;
+  b0:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__data_end>
+  b4:	08 95       	ret
+void Effect(void)
+{
+	switch(StepTurn)
+	{
+		case 0:
+		StepTurn=1;
+  b6:	81 e0       	ldi	r24, 0x01	; 1
+  b8:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
+  bc:	08 95       	ret
+
+000000be <main>:
 
 
 int main(void)
 {
+	unsigned char d = eeprom_read_byte(&D1);
 	PORTB = 0x00;
-  a8:	18 ba       	out	0x18, r1	; 24
+  be:	18 ba       	out	0x18, r1	; 24
 	PORTD = 0x00;
-  aa:	12 ba       	out	0x12, r1	; 18
+  c0:	12 ba       	out	0x12, r1	; 18
 	DDRB = 0xff;  // PORTB as OUTPUT
-  ac:	8f ef       	ldi	r24, 0xFF	; 255
-  ae:	87 bb       	out	0x17, r24	; 23
+  c2:	8f ef       	ldi	r24, 0xFF	; 255
+  c4:	87 bb       	out	0x17, r24	; 23
 	DDRD = 0xff;  // PORTD as OUTPUT
-  b0:	81 bb       	out	0x11, r24	; 17
+  c6:	81 bb       	out	0x11, r24	; 17
 
 	
 	TCCR0 = (1<<CS00)|(1<<CS01); // CLK/64
-  b2:	83 e0       	ldi	r24, 0x03	; 3
-  b4:	83 bf       	out	0x33, r24	; 51
+  c8:	83 e0       	ldi	r24, 0x03	; 3
+  ca:	83 bf       	out	0x33, r24	; 51
 	TIMSK = (1<<TOIE0);
-  b6:	81 e0       	ldi	r24, 0x01	; 1
-  b8:	89 bf       	out	0x39, r24	; 57
+  cc:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	89 bf       	out	0x39, r24	; 57
 	
 	
 	sei();
-  ba:	78 94       	sei
-  bc:	ff cf       	rjmp	.-2      	; 0xbc <main+0x14>
+  d0:	78 94       	sei
+	
+	while (1)
+	{
+		Effect();
+  d2:	ea df       	rcall	.-44     	; 0xa8 <Effect>
+  d4:	fe cf       	rjmp	.-4      	; 0xd2 <main+0x14>
 
-000000be <_exit>:
-  be:	f8 94       	cli
+000000d6 <_exit>:
+  d6:	f8 94       	cli
 
-000000c0 <__stop_program>:
-  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+000000d8 <__stop_program>:
+  d8:	ff cf       	rjmp	.-2      	; 0xd8 <__stop_program>
