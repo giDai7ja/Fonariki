@@ -3,201 +3,571 @@ ATmega8.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000da  00000000  00000000  00000094  2**1
+  0 .text         000002b6  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  0000016f  2**0
+  1 .data         00000000  00800060  00800060  0000034b  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000009  00800060  00800060  0000016e  2**0
+  2 .bss          00000006  00800060  00800060  0000034a  2**0
                   ALLOC
-  3 .eeprom       00000001  00810000  00810000  0000016e  2**0
+  3 .eeprom       00000001  00810000  00810000  0000034a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .comment      00000030  00000000  00000000  0000016f  2**0
+  4 .comment      00000030  00000000  00000000  0000034b  2**0
                   CONTENTS, READONLY
-  5 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001a0  2**2
+  5 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000037c  2**2
                   CONTENTS, READONLY
-  6 .debug_aranges 00000038  00000000  00000000  000001dc  2**0
+  6 .debug_aranges 00000040  00000000  00000000  000003b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   00000600  00000000  00000000  00000214  2**0
+  7 .debug_info   000005da  00000000  00000000  000003f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00000529  00000000  00000000  00000814  2**0
+  8 .debug_abbrev 00000531  00000000  00000000  000009d2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000229  00000000  00000000  00000d3d  2**0
+  9 .debug_line   000004d4  00000000  00000000  00000f03  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00000074  00000000  00000000  00000f68  2**2
+ 10 .debug_frame  00000078  00000000  00000000  000013d8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    000002ff  00000000  00000000  00000fdc  2**0
+ 11 .debug_str    000002ec  00000000  00000000  00001450  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    00000063  00000000  00000000  000012db  2**0
+ 12 .debug_loc    00000049  00000000  00000000  0000173c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000028  00000000  00000000  0000133e  2**0
+ 13 .debug_ranges 00000030  00000000  00000000  00001785  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
-   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
-   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
-   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
-   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
-   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
-   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
-   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
-   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
-  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
-  12:	25 c0       	rjmp	.+74     	; 0x5e <__vector_9>
-  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
-  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
-  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
-  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
-  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
-  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
-  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
-  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
-  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+   0:	37 c0       	rjmp	.+110    	; 0x70 <__ctors_end>
+   2:	46 c0       	rjmp	.+140    	; 0x90 <__bad_interrupt>
+   4:	45 c0       	rjmp	.+138    	; 0x90 <__bad_interrupt>
+   6:	44 c0       	rjmp	.+136    	; 0x90 <__bad_interrupt>
+   8:	43 c0       	rjmp	.+134    	; 0x90 <__bad_interrupt>
+   a:	42 c0       	rjmp	.+132    	; 0x90 <__bad_interrupt>
+   c:	41 c0       	rjmp	.+130    	; 0x90 <__bad_interrupt>
+   e:	40 c0       	rjmp	.+128    	; 0x90 <__bad_interrupt>
+  10:	3f c0       	rjmp	.+126    	; 0x90 <__bad_interrupt>
+  12:	3f c0       	rjmp	.+126    	; 0x92 <__vector_9>
+  14:	3d c0       	rjmp	.+122    	; 0x90 <__bad_interrupt>
+  16:	3c c0       	rjmp	.+120    	; 0x90 <__bad_interrupt>
+  18:	3b c0       	rjmp	.+118    	; 0x90 <__bad_interrupt>
+  1a:	3a c0       	rjmp	.+116    	; 0x90 <__bad_interrupt>
+  1c:	39 c0       	rjmp	.+114    	; 0x90 <__bad_interrupt>
+  1e:	38 c0       	rjmp	.+112    	; 0x90 <__bad_interrupt>
+  20:	37 c0       	rjmp	.+110    	; 0x90 <__bad_interrupt>
+  22:	36 c0       	rjmp	.+108    	; 0x90 <__bad_interrupt>
+  24:	35 c0       	rjmp	.+106    	; 0x90 <__bad_interrupt>
+  26:	76 c0       	rjmp	.+236    	; 0x114 <Effect+0x30>
+  28:	82 c0       	rjmp	.+260    	; 0x12e <Effect+0x4a>
+  2a:	86 c0       	rjmp	.+268    	; 0x138 <Effect+0x54>
+  2c:	8a c0       	rjmp	.+276    	; 0x142 <Effect+0x5e>
+  2e:	8e c0       	rjmp	.+284    	; 0x14c <Effect+0x68>
+  30:	92 c0       	rjmp	.+292    	; 0x156 <Effect+0x72>
+  32:	96 c0       	rjmp	.+300    	; 0x160 <Effect+0x7c>
+  34:	9a c0       	rjmp	.+308    	; 0x16a <Effect+0x86>
+  36:	9e c0       	rjmp	.+316    	; 0x174 <Effect+0x90>
+  38:	a2 c0       	rjmp	.+324    	; 0x17e <Effect+0x9a>
+  3a:	a6 c0       	rjmp	.+332    	; 0x188 <Effect+0xa4>
+  3c:	aa c0       	rjmp	.+340    	; 0x192 <Effect+0xae>
+  3e:	ae c0       	rjmp	.+348    	; 0x19c <Effect+0xb8>
+  40:	b2 c0       	rjmp	.+356    	; 0x1a6 <Effect+0xc2>
+  42:	b6 c0       	rjmp	.+364    	; 0x1b0 <Effect+0xcc>
+  44:	ba c0       	rjmp	.+372    	; 0x1ba <Effect+0xd6>
+  46:	be c0       	rjmp	.+380    	; 0x1c4 <Effect+0xe0>
+  48:	22 c1       	rjmp	.+580    	; 0x28e <Effect+0x1aa>
+  4a:	21 c1       	rjmp	.+578    	; 0x28e <Effect+0x1aa>
+  4c:	20 c1       	rjmp	.+576    	; 0x28e <Effect+0x1aa>
+  4e:	c9 c0       	rjmp	.+402    	; 0x1e2 <Effect+0xfe>
+  50:	cd c0       	rjmp	.+410    	; 0x1ec <Effect+0x108>
+  52:	d1 c0       	rjmp	.+418    	; 0x1f6 <Effect+0x112>
+  54:	d5 c0       	rjmp	.+426    	; 0x200 <Effect+0x11c>
+  56:	d9 c0       	rjmp	.+434    	; 0x20a <Effect+0x126>
+  58:	dd c0       	rjmp	.+442    	; 0x214 <Effect+0x130>
+  5a:	e1 c0       	rjmp	.+450    	; 0x21e <Effect+0x13a>
+  5c:	e5 c0       	rjmp	.+458    	; 0x228 <Effect+0x144>
+  5e:	e9 c0       	rjmp	.+466    	; 0x232 <Effect+0x14e>
+  60:	ed c0       	rjmp	.+474    	; 0x23c <Effect+0x158>
+  62:	f1 c0       	rjmp	.+482    	; 0x246 <Effect+0x162>
+  64:	f5 c0       	rjmp	.+490    	; 0x250 <Effect+0x16c>
+  66:	f9 c0       	rjmp	.+498    	; 0x25a <Effect+0x176>
+  68:	fd c0       	rjmp	.+506    	; 0x264 <Effect+0x180>
+  6a:	01 c1       	rjmp	.+514    	; 0x26e <Effect+0x18a>
+  6c:	05 c1       	rjmp	.+522    	; 0x278 <Effect+0x194>
+  6e:	09 c1       	rjmp	.+530    	; 0x282 <Effect+0x19e>
 
-00000026 <__ctors_end>:
-  26:	11 24       	eor	r1, r1
-  28:	1f be       	out	0x3f, r1	; 63
-  2a:	cf e5       	ldi	r28, 0x5F	; 95
-  2c:	d4 e0       	ldi	r29, 0x04	; 4
-  2e:	de bf       	out	0x3e, r29	; 62
-  30:	cd bf       	out	0x3d, r28	; 61
+00000070 <__ctors_end>:
+  70:	11 24       	eor	r1, r1
+  72:	1f be       	out	0x3f, r1	; 63
+  74:	cf e5       	ldi	r28, 0x5F	; 95
+  76:	d4 e0       	ldi	r29, 0x04	; 4
+  78:	de bf       	out	0x3e, r29	; 62
+  7a:	cd bf       	out	0x3d, r28	; 61
 
-00000032 <__do_copy_data>:
-  32:	10 e0       	ldi	r17, 0x00	; 0
-  34:	a0 e6       	ldi	r26, 0x60	; 96
-  36:	b0 e0       	ldi	r27, 0x00	; 0
-  38:	ea ed       	ldi	r30, 0xDA	; 218
-  3a:	f0 e0       	ldi	r31, 0x00	; 0
-  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
-  3e:	05 90       	lpm	r0, Z+
-  40:	0d 92       	st	X+, r0
-  42:	a0 36       	cpi	r26, 0x60	; 96
-  44:	b1 07       	cpc	r27, r17
-  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+0000007c <__do_clear_bss>:
+  7c:	20 e0       	ldi	r18, 0x00	; 0
+  7e:	a0 e6       	ldi	r26, 0x60	; 96
+  80:	b0 e0       	ldi	r27, 0x00	; 0
+  82:	01 c0       	rjmp	.+2      	; 0x86 <.do_clear_bss_start>
 
-00000048 <__do_clear_bss>:
-  48:	20 e0       	ldi	r18, 0x00	; 0
-  4a:	a0 e6       	ldi	r26, 0x60	; 96
-  4c:	b0 e0       	ldi	r27, 0x00	; 0
-  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+00000084 <.do_clear_bss_loop>:
+  84:	1d 92       	st	X+, r1
 
-00000050 <.do_clear_bss_loop>:
-  50:	1d 92       	st	X+, r1
+00000086 <.do_clear_bss_start>:
+  86:	a6 36       	cpi	r26, 0x66	; 102
+  88:	b2 07       	cpc	r27, r18
+  8a:	e1 f7       	brne	.-8      	; 0x84 <.do_clear_bss_loop>
+  8c:	0f d1       	rcall	.+542    	; 0x2ac <main>
+  8e:	11 c1       	rjmp	.+546    	; 0x2b2 <_exit>
 
-00000052 <.do_clear_bss_start>:
-  52:	a9 36       	cpi	r26, 0x69	; 105
-  54:	b2 07       	cpc	r27, r18
-  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
-  58:	32 d0       	rcall	.+100    	; 0xbe <main>
-  5a:	3d c0       	rjmp	.+122    	; 0xd6 <_exit>
+00000090 <__bad_interrupt>:
+  90:	b7 cf       	rjmp	.-146    	; 0x0 <__vectors>
 
-0000005c <__bad_interrupt>:
-  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
-
-0000005e <__vector_9>:
-	0b11000000, 0b00000000,
-	0b10000000, 0b00000000,
-	0b00000000, 0b00000000
-};
+00000092 <__vector_9>:
+//0b11000000, 0b00000000,
+//0b10000000, 0b00000000,
+//0b00000000, 0b00000000
+//};
 
 ISR(TIMER0_OVF_vect){
-  5e:	1f 92       	push	r1
-  60:	0f 92       	push	r0
-  62:	0f b6       	in	r0, 0x3f	; 63
-  64:	0f 92       	push	r0
-  66:	11 24       	eor	r1, r1
-  68:	8f 93       	push	r24
-  6a:	9f 93       	push	r25
-  6c:	af 93       	push	r26
-  6e:	bf 93       	push	r27
+  92:	1f 92       	push	r1
+  94:	0f 92       	push	r0
+  96:	0f b6       	in	r0, 0x3f	; 63
+  98:	0f 92       	push	r0
+  9a:	11 24       	eor	r1, r1
+  9c:	8f 93       	push	r24
+  9e:	9f 93       	push	r25
 	SYS_TIK++;
-  70:	80 91 65 00 	lds	r24, 0x0065	; 0x800065 <SYS_TIK>
-  74:	90 91 66 00 	lds	r25, 0x0066	; 0x800066 <SYS_TIK+0x1>
-  78:	a0 91 67 00 	lds	r26, 0x0067	; 0x800067 <SYS_TIK+0x2>
-  7c:	b0 91 68 00 	lds	r27, 0x0068	; 0x800068 <SYS_TIK+0x3>
-  80:	01 96       	adiw	r24, 0x01	; 1
-  82:	a1 1d       	adc	r26, r1
-  84:	b1 1d       	adc	r27, r1
-  86:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <SYS_TIK>
-  8a:	90 93 66 00 	sts	0x0066, r25	; 0x800066 <SYS_TIK+0x1>
-  8e:	a0 93 67 00 	sts	0x0067, r26	; 0x800067 <SYS_TIK+0x2>
-  92:	b0 93 68 00 	sts	0x0068, r27	; 0x800068 <SYS_TIK+0x3>
+  a0:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <SYS_TIK>
+  a4:	90 91 64 00 	lds	r25, 0x0064	; 0x800064 <SYS_TIK+0x1>
+  a8:	01 96       	adiw	r24, 0x01	; 1
+  aa:	90 93 64 00 	sts	0x0064, r25	; 0x800064 <SYS_TIK+0x1>
+  ae:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <SYS_TIK>
 }
-  96:	bf 91       	pop	r27
-  98:	af 91       	pop	r26
-  9a:	9f 91       	pop	r25
-  9c:	8f 91       	pop	r24
-  9e:	0f 90       	pop	r0
-  a0:	0f be       	out	0x3f, r0	; 63
-  a2:	0f 90       	pop	r0
-  a4:	1f 90       	pop	r1
-  a6:	18 95       	reti
+  b2:	9f 91       	pop	r25
+  b4:	8f 91       	pop	r24
+  b6:	0f 90       	pop	r0
+  b8:	0f be       	out	0x3f, r0	; 63
+  ba:	0f 90       	pop	r0
+  bc:	1f 90       	pop	r1
+  be:	18 95       	reti
 
-000000a8 <Effect>:
-	}
+000000c0 <Init>:
+}
+
+void Init()
+{
+	d = eeprom_read_byte(&D1);
+	d = 82;
+  c0:	82 e5       	ldi	r24, 0x52	; 82
+  c2:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <d>
+	PORTB = 0x00;
+  c6:	18 ba       	out	0x18, r1	; 24
+	PORTD = 0x00;
+  c8:	12 ba       	out	0x12, r1	; 18
+	PORTC = 0x00;
+  ca:	15 ba       	out	0x15, r1	; 21
+	DDRB = 0x07;  // PORTB as OUTPUT
+  cc:	87 e0       	ldi	r24, 0x07	; 7
+  ce:	87 bb       	out	0x17, r24	; 23
+	DDRD = 0xFB;  // PORTD as OUTPUT
+  d0:	8b ef       	ldi	r24, 0xFB	; 251
+  d2:	81 bb       	out	0x11, r24	; 17
+	DDRC = 0x3F;  // PORTC as OUTPUT
+  d4:	8f e3       	ldi	r24, 0x3F	; 63
+  d6:	84 bb       	out	0x14, r24	; 20
+
+	TCCR0 = (1<<CS01); // CLK/8
+  d8:	82 e0       	ldi	r24, 0x02	; 2
+  da:	83 bf       	out	0x33, r24	; 51
+	//	TCCR0 = (1<<CS00)|(1<<CS01); // CLK/64
+	//	TCCR0 = (1<<CS00)|(1<<CS02); // CLK/1024
+	TIMSK = (1<<TOIE0);
+  dc:	81 e0       	ldi	r24, 0x01	; 1
+  de:	89 bf       	out	0x39, r24	; 57
+	
+	sei();
+  e0:	78 94       	sei
+  e2:	08 95       	ret
+
+000000e4 <Effect>:
 }
 
 void Effect(void)
 {
-	switch(StepTurn)
-  a8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__data_end>
-  ac:	88 23       	and	r24, r24
-  ae:	19 f0       	breq	.+6      	; 0xb6 <Effect+0xe>
-		case 0:
-		StepTurn=1;
-		break;
-		
-		case 1:
-		StepTurn=0;
-  b0:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__data_end>
-  b4:	08 95       	ret
-void Effect(void)
-{
-	switch(StepTurn)
-	{
-		case 0:
-		StepTurn=1;
-  b6:	81 e0       	ldi	r24, 0x01	; 1
-  b8:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_end>
-  bc:	08 95       	ret
+	if (TurnTime < SYS_TIK) {
+  e4:	20 91 61 00 	lds	r18, 0x0061	; 0x800061 <TurnTime>
+  e8:	30 91 62 00 	lds	r19, 0x0062	; 0x800062 <TurnTime+0x1>
+  ec:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <SYS_TIK>
+  f0:	90 91 64 00 	lds	r25, 0x0064	; 0x800064 <SYS_TIK+0x1>
+  f4:	28 17       	cp	r18, r24
+  f6:	39 07       	cpc	r19, r25
+  f8:	08 f0       	brcs	.+2      	; 0xfc <Effect+0x18>
+  fa:	d7 c0       	rjmp	.+430    	; 0x2aa <Effect+0x1c6>
+		switch(StepTurn)
+  fc:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <_edata>
+ 100:	8e 2f       	mov	r24, r30
+ 102:	90 e0       	ldi	r25, 0x00	; 0
+ 104:	85 32       	cpi	r24, 0x25	; 37
+ 106:	91 05       	cpc	r25, r1
+ 108:	08 f0       	brcs	.+2      	; 0x10c <Effect+0x28>
+ 10a:	c1 c0       	rjmp	.+386    	; 0x28e <Effect+0x1aa>
+ 10c:	fc 01       	movw	r30, r24
+ 10e:	ed 5e       	subi	r30, 0xED	; 237
+ 110:	ff 4f       	sbci	r31, 0xFF	; 255
+ 112:	09 94       	ijmp
+		{
+			case 0:
+			SYS_TIK=0;
+ 114:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <SYS_TIK+0x1>
+ 118:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <SYS_TIK>
+			TurnTime=0;
+ 11c:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <TurnTime+0x1>
+ 120:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <TurnTime>
+			StepTurn=1;
+ 124:	81 e0       	ldi	r24, 0x01	; 1
+ 126:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD1);
+ 12a:	91 9a       	sbi	0x12, 1	; 18
+			break;
+ 12c:	b2 c0       	rjmp	.+356    	; 0x292 <Effect+0x1ae>
+			
+			case 1:
+			StepTurn=2;
+ 12e:	82 e0       	ldi	r24, 0x02	; 2
+ 130:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD0);
+ 134:	90 9a       	sbi	0x12, 0	; 18
+			break;
+ 136:	ad c0       	rjmp	.+346    	; 0x292 <Effect+0x1ae>
+			
+			case 2:
+			StepTurn=3;
+ 138:	83 e0       	ldi	r24, 0x03	; 3
+ 13a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC5);
+ 13e:	ad 9a       	sbi	0x15, 5	; 21
+			break;
+ 140:	a8 c0       	rjmp	.+336    	; 0x292 <Effect+0x1ae>
+			
+			case 3:
+			StepTurn=4;
+ 142:	84 e0       	ldi	r24, 0x04	; 4
+ 144:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC4);
+ 148:	ac 9a       	sbi	0x15, 4	; 21
+			break;
+ 14a:	a3 c0       	rjmp	.+326    	; 0x292 <Effect+0x1ae>
 
-000000be <main>:
+			case 4:
+			StepTurn=5;
+ 14c:	85 e0       	ldi	r24, 0x05	; 5
+ 14e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC3);
+ 152:	ab 9a       	sbi	0x15, 3	; 21
+			break;
+ 154:	9e c0       	rjmp	.+316    	; 0x292 <Effect+0x1ae>
+			
+			case 5:
+			StepTurn=6;
+ 156:	86 e0       	ldi	r24, 0x06	; 6
+ 158:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC2);
+ 15c:	aa 9a       	sbi	0x15, 2	; 21
+			break;
+ 15e:	99 c0       	rjmp	.+306    	; 0x292 <Effect+0x1ae>
+			
+			case 6:
+			StepTurn=7;
+ 160:	87 e0       	ldi	r24, 0x07	; 7
+ 162:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC1);
+ 166:	a9 9a       	sbi	0x15, 1	; 21
+			break;
+ 168:	94 c0       	rjmp	.+296    	; 0x292 <Effect+0x1ae>
+			
+			case 7:
+			StepTurn=8;
+ 16a:	88 e0       	ldi	r24, 0x08	; 8
+ 16c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC |= (1<<PC0);
+ 170:	a8 9a       	sbi	0x15, 0	; 21
+			break;
+ 172:	8f c0       	rjmp	.+286    	; 0x292 <Effect+0x1ae>
+
+			case 8:
+			StepTurn=9;
+ 174:	89 e0       	ldi	r24, 0x09	; 9
+ 176:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD3);
+ 17a:	93 9a       	sbi	0x12, 3	; 18
+			break;
+ 17c:	8a c0       	rjmp	.+276    	; 0x292 <Effect+0x1ae>
+
+			case 9:
+			StepTurn=10;
+ 17e:	8a e0       	ldi	r24, 0x0A	; 10
+ 180:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD4);
+ 184:	94 9a       	sbi	0x12, 4	; 18
+			break;
+ 186:	85 c0       	rjmp	.+266    	; 0x292 <Effect+0x1ae>
+
+			case 10:
+			StepTurn=11;
+ 188:	8b e0       	ldi	r24, 0x0B	; 11
+ 18a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD5);
+ 18e:	95 9a       	sbi	0x12, 5	; 18
+			break;
+ 190:	80 c0       	rjmp	.+256    	; 0x292 <Effect+0x1ae>
+
+			case 11:
+			StepTurn=12;
+ 192:	8c e0       	ldi	r24, 0x0C	; 12
+ 194:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD6);
+ 198:	96 9a       	sbi	0x12, 6	; 18
+			break;
+ 19a:	7b c0       	rjmp	.+246    	; 0x292 <Effect+0x1ae>
+			
+			case 12:
+			StepTurn=13;
+ 19c:	8d e0       	ldi	r24, 0x0D	; 13
+ 19e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD |= (1<<PD7);
+ 1a2:	97 9a       	sbi	0x12, 7	; 18
+			break;
+ 1a4:	76 c0       	rjmp	.+236    	; 0x292 <Effect+0x1ae>
+
+			case 13:
+			StepTurn=14;
+ 1a6:	8e e0       	ldi	r24, 0x0E	; 14
+ 1a8:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB |= (1<<PB0);
+ 1ac:	c0 9a       	sbi	0x18, 0	; 24
+			break;
+ 1ae:	71 c0       	rjmp	.+226    	; 0x292 <Effect+0x1ae>
+
+			case 14:
+			StepTurn=15;
+ 1b0:	8f e0       	ldi	r24, 0x0F	; 15
+ 1b2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB |= (1<<PB1);
+ 1b6:	c1 9a       	sbi	0x18, 1	; 24
+			break;
+ 1b8:	6c c0       	rjmp	.+216    	; 0x292 <Effect+0x1ae>
+
+			case 15:
+			StepTurn=16;
+ 1ba:	80 e1       	ldi	r24, 0x10	; 16
+ 1bc:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB |= (1<<PB2);
+ 1c0:	c2 9a       	sbi	0x18, 2	; 24
+			break;
+ 1c2:	67 c0       	rjmp	.+206    	; 0x292 <Effect+0x1ae>
+
+
+			case 16:
+			StepTurn=20;
+ 1c4:	84 e1       	ldi	r24, 0x14	; 20
+ 1c6:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			TurnTime+=d*31;
+ 1ca:	80 91 65 00 	lds	r24, 0x0065	; 0x800065 <d>
+ 1ce:	9f e1       	ldi	r25, 0x1F	; 31
+ 1d0:	89 9f       	mul	r24, r25
+ 1d2:	20 0d       	add	r18, r0
+ 1d4:	31 1d       	adc	r19, r1
+ 1d6:	11 24       	eor	r1, r1
+ 1d8:	30 93 62 00 	sts	0x0062, r19	; 0x800062 <TurnTime+0x1>
+ 1dc:	20 93 61 00 	sts	0x0061, r18	; 0x800061 <TurnTime>
+			break;
+ 1e0:	58 c0       	rjmp	.+176    	; 0x292 <Effect+0x1ae>
+
+
+			case 20:
+			StepTurn=21;
+ 1e2:	85 e1       	ldi	r24, 0x15	; 21
+ 1e4:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD1);
+ 1e8:	91 98       	cbi	0x12, 1	; 18
+			break;
+ 1ea:	53 c0       	rjmp	.+166    	; 0x292 <Effect+0x1ae>
+			
+			case 21:
+			StepTurn=22;
+ 1ec:	86 e1       	ldi	r24, 0x16	; 22
+ 1ee:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD0);
+ 1f2:	90 98       	cbi	0x12, 0	; 18
+			break;
+ 1f4:	4e c0       	rjmp	.+156    	; 0x292 <Effect+0x1ae>
+			
+			case 22:
+			StepTurn=23;
+ 1f6:	87 e1       	ldi	r24, 0x17	; 23
+ 1f8:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC5);
+ 1fc:	ad 98       	cbi	0x15, 5	; 21
+			break;
+ 1fe:	49 c0       	rjmp	.+146    	; 0x292 <Effect+0x1ae>
+			
+			case 23:
+			StepTurn=24;
+ 200:	88 e1       	ldi	r24, 0x18	; 24
+ 202:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC4);
+ 206:	ac 98       	cbi	0x15, 4	; 21
+			break;
+ 208:	44 c0       	rjmp	.+136    	; 0x292 <Effect+0x1ae>
+
+			case 24:
+			StepTurn=25;
+ 20a:	89 e1       	ldi	r24, 0x19	; 25
+ 20c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC3);
+ 210:	ab 98       	cbi	0x15, 3	; 21
+			break;
+ 212:	3f c0       	rjmp	.+126    	; 0x292 <Effect+0x1ae>
+			
+			case 25:
+			StepTurn=26;
+ 214:	8a e1       	ldi	r24, 0x1A	; 26
+ 216:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC2);
+ 21a:	aa 98       	cbi	0x15, 2	; 21
+			break;
+ 21c:	3a c0       	rjmp	.+116    	; 0x292 <Effect+0x1ae>
+			
+			case 26:
+			StepTurn=27;
+ 21e:	8b e1       	ldi	r24, 0x1B	; 27
+ 220:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC1);
+ 224:	a9 98       	cbi	0x15, 1	; 21
+			break;
+ 226:	35 c0       	rjmp	.+106    	; 0x292 <Effect+0x1ae>
+			
+			case 27:
+			StepTurn=28;
+ 228:	8c e1       	ldi	r24, 0x1C	; 28
+ 22a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTC &= ~(1<<PC0);
+ 22e:	a8 98       	cbi	0x15, 0	; 21
+			break;
+ 230:	30 c0       	rjmp	.+96     	; 0x292 <Effect+0x1ae>
+
+			case 28:
+			StepTurn=29;
+ 232:	8d e1       	ldi	r24, 0x1D	; 29
+ 234:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD3);
+ 238:	93 98       	cbi	0x12, 3	; 18
+			break;
+ 23a:	2b c0       	rjmp	.+86     	; 0x292 <Effect+0x1ae>
+
+			case 29:
+			StepTurn=30;
+ 23c:	8e e1       	ldi	r24, 0x1E	; 30
+ 23e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD4);
+ 242:	94 98       	cbi	0x12, 4	; 18
+			break;
+ 244:	26 c0       	rjmp	.+76     	; 0x292 <Effect+0x1ae>
+
+			case 30:
+			StepTurn=31;
+ 246:	8f e1       	ldi	r24, 0x1F	; 31
+ 248:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD5);
+ 24c:	95 98       	cbi	0x12, 5	; 18
+			break;
+ 24e:	21 c0       	rjmp	.+66     	; 0x292 <Effect+0x1ae>
+
+			case 31:
+			StepTurn=32;
+ 250:	80 e2       	ldi	r24, 0x20	; 32
+ 252:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD6);
+ 256:	96 98       	cbi	0x12, 6	; 18
+			break;
+ 258:	1c c0       	rjmp	.+56     	; 0x292 <Effect+0x1ae>
+			
+			case 32:
+			StepTurn=33;
+ 25a:	81 e2       	ldi	r24, 0x21	; 33
+ 25c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTD &= ~(1<<PD7);
+ 260:	97 98       	cbi	0x12, 7	; 18
+			break;
+ 262:	17 c0       	rjmp	.+46     	; 0x292 <Effect+0x1ae>
+
+			case 33:
+			StepTurn=34;
+ 264:	82 e2       	ldi	r24, 0x22	; 34
+ 266:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB &= ~(1<<PB0);
+ 26a:	c0 98       	cbi	0x18, 0	; 24
+			break;
+ 26c:	12 c0       	rjmp	.+36     	; 0x292 <Effect+0x1ae>
+
+			case 34:
+			StepTurn=35;
+ 26e:	83 e2       	ldi	r24, 0x23	; 35
+ 270:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB &= ~(1<<PB1);
+ 274:	c1 98       	cbi	0x18, 1	; 24
+			break;
+ 276:	0d c0       	rjmp	.+26     	; 0x292 <Effect+0x1ae>
+
+			case 35:
+			StepTurn=36;
+ 278:	84 e2       	ldi	r24, 0x24	; 36
+ 27a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+			PORTB &= ~(1<<PB2);
+ 27e:	c2 98       	cbi	0x18, 2	; 24
+			break;
+ 280:	08 c0       	rjmp	.+16     	; 0x292 <Effect+0x1ae>
+
+			case 36:
+			StepTurn=0;
+ 282:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+			PORTB = 0;
+ 286:	18 ba       	out	0x18, r1	; 24
+			PORTC = 0;
+ 288:	15 ba       	out	0x15, r1	; 21
+			PORTD = 0;
+ 28a:	12 ba       	out	0x12, r1	; 18
+			break;
+ 28c:	02 c0       	rjmp	.+4      	; 0x292 <Effect+0x1ae>
+
+			
+			default:
+			StepTurn=0;
+ 28e:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+		}
+		TurnTime+=d;
+ 292:	20 91 65 00 	lds	r18, 0x0065	; 0x800065 <d>
+ 296:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <TurnTime>
+ 29a:	90 91 62 00 	lds	r25, 0x0062	; 0x800062 <TurnTime+0x1>
+ 29e:	82 0f       	add	r24, r18
+ 2a0:	91 1d       	adc	r25, r1
+ 2a2:	90 93 62 00 	sts	0x0062, r25	; 0x800062 <TurnTime+0x1>
+ 2a6:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <TurnTime>
+ 2aa:	08 95       	ret
+
+000002ac <main>:
+void AutoAdjust(void);
 
 
 int main(void)
 {
-	unsigned char d = eeprom_read_byte(&D1);
-	PORTB = 0x00;
-  be:	18 ba       	out	0x18, r1	; 24
-	PORTD = 0x00;
-  c0:	12 ba       	out	0x12, r1	; 18
-	DDRB = 0xff;  // PORTB as OUTPUT
-  c2:	8f ef       	ldi	r24, 0xFF	; 255
-  c4:	87 bb       	out	0x17, r24	; 23
-	DDRD = 0xff;  // PORTD as OUTPUT
-  c6:	81 bb       	out	0x11, r24	; 17
-
-	
-	TCCR0 = (1<<CS00)|(1<<CS01); // CLK/64
-  c8:	83 e0       	ldi	r24, 0x03	; 3
-  ca:	83 bf       	out	0x33, r24	; 51
-	TIMSK = (1<<TOIE0);
-  cc:	81 e0       	ldi	r24, 0x01	; 1
-  ce:	89 bf       	out	0x39, r24	; 57
-	
-	
-	sei();
-  d0:	78 94       	sei
-	
+	Init();
+ 2ac:	09 df       	rcall	.-494    	; 0xc0 <Init>
 	while (1)
 	{
 		Effect();
-  d2:	ea df       	rcall	.-44     	; 0xa8 <Effect>
-  d4:	fe cf       	rjmp	.-4      	; 0xd2 <main+0x14>
+ 2ae:	1a df       	rcall	.-460    	; 0xe4 <Effect>
+ 2b0:	fe cf       	rjmp	.-4      	; 0x2ae <main+0x2>
 
-000000d6 <_exit>:
-  d6:	f8 94       	cli
+000002b2 <_exit>:
+ 2b2:	f8 94       	cli
 
-000000d8 <__stop_program>:
-  d8:	ff cf       	rjmp	.-2      	; 0xd8 <__stop_program>
+000002b4 <__stop_program>:
+ 2b4:	ff cf       	rjmp	.-2      	; 0x2b4 <__stop_program>
