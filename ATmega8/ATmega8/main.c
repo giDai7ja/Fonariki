@@ -5,6 +5,8 @@
 * Author : Peppa
 */
 
+#define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
@@ -12,13 +14,13 @@
 //#define F_CPU 8000000UL
 unsigned char D1 EEMEM;
 
-unsigned int SYS_TIK;
-unsigned int TurnTime;
+unsigned long int SYS_TIK=0;
+unsigned long int NextStepTime=0;
+unsigned long int StartTime=0, StopTime=0, SaveTime=0;
 
 unsigned char StepTurn = 0;
-//unsigned char TurnIndex = 0;
 
-unsigned char d;
+unsigned char d, d_eeprom;
 uint8_t i,j;
 
 volatile uint8_t *myports[] = {
@@ -58,47 +60,6 @@ volatile uint8_t pin[] = {
 	PB2
 };
 
-//int main() {
-//uint8_t i,j;
-//for (i=0; i < 3; i++) {
-//*(myports[i]) |= 0x10;  // set this bit in each port
-//}
-//}
-
-//const char turn[64] = {
-//0b00000000, 0b00000001,
-//0b00000000, 0b00000011,
-//0b00000000, 0b00000111,
-//0b00000000, 0b00001111,
-//0b00000000, 0b00011111,
-//0b00000000, 0b00111111,
-//0b00000000, 0b01111111,
-//0b00000000, 0b11111111,
-//0b00000001, 0b11111111,
-//0b00000011, 0b11111111,
-//0b00000111, 0b11111111,
-//0b00001111, 0b11111111,
-//0b00011111, 0b11111111,
-//0b00111111, 0b11111111,
-//0b01111111, 0b11111111,
-//0b11111111, 0b11111111,
-//0b11111111, 0b11111110,
-//0b11111111, 0b11111100,
-//0b11111111, 0b11111000,
-//0b11111111, 0b11110000,
-//0b11111111, 0b11100000,
-//0b11111111, 0b11000000,
-//0b11111111, 0b10000000,
-//0b11111111, 0b00000000,
-//0b11111110, 0b00000000,
-//0b11111100, 0b00000000,
-//0b11111000, 0b00000000,
-//0b11110000, 0b00000000,
-//0b11100000, 0b00000000,
-//0b11000000, 0b00000000,
-//0b10000000, 0b00000000,
-//0b00000000, 0b00000000
-//};
 
 ISR(TIMER0_OVF_vect){
 	SYS_TIK++;
@@ -114,28 +75,41 @@ int main(void)
 	Init();
 	while (1)
 	{
-		//		for (i=0; i < 3; i++) {
-		//			*(myports[i]) |= (1<<pin[i]);  // set this bit in each port
-		//		}
-		Effect();
-		//		AutoAdjust();
+		while ( !(PIND & (1<<PIND2)) || ((StartTime+400)>SYS_TIK) )
+		{
+			Effect();
+		}
+		PORTB = 0;
+		PORTD = 0;
+		PORTC = 0;
+		DDRB = 0;  // PORTB as INTPUT
+		DDRD = 0;  // PORTD as INTPUT
+		DDRC = 0;  // PORTC as INTPUT
+		StopTime=SYS_TIK;
+		StepTurn=0;
+		i=0;
+		AutoAdjust();
+		SaveTime=StopTime+11718;
+		while ( (PIND & (1<<PIND2)) )
+		{
+			if ( (SaveTime<SYS_TIK) && (d_eeprom != d ) ) {
+				eeprom_update_byte(&D1, d);
+				d_eeprom=d;
+				//				DDRB = 0x07;
+				//				PORTB = 0x07;
+			}
+			_NOP();
+		}
+		
 	}
 }
 
 void Init()
 {
-	d = eeprom_read_byte(&D1);
-	d = 90;
-	PORTB = 0x00;
-	PORTD = 0x00;
-	PORTC = 0x00;
-	DDRB = 0x07;  // PORTB as OUTPUT
-	DDRD = 0xFB;  // PORTD as OUTPUT
-	DDRC = 0x3F;  // PORTC as OUTPUT
+	d_eeprom = eeprom_read_byte(&D1);
+	d = d_eeprom;
 
 	TCCR0 = (1<<CS01); // CLK/8
-	//	TCCR0 = (1<<CS00)|(1<<CS01); // CLK/64
-	//	TCCR0 = (1<<CS00)|(1<<CS02); // CLK/1024
 	TIMSK = (1<<TOIE0);
 	
 	sei();
@@ -143,27 +117,45 @@ void Init()
 
 void Effect(void)
 {
-	if (TurnTime < SYS_TIK) {
+	if (NextStepTime <= SYS_TIK) {
 		switch(StepTurn)
 		{
 			case 0:
 			if ( i == 0 ) {
-				SYS_TIK=0;
-				TurnTime=0;
+				NextStepTime=SYS_TIK;
+				StartTime=SYS_TIK;
+				StopTime=SYS_TIK;
+				PORTB = 0;
+				PORTD = 0;
+				PORTC = 0;
+				DDRB = 0x07;  // PORTB as OUTPUT
+				DDRD = 0xFB;  // PORTD as OUTPUT
+				DDRC = 0x3F;  // PORTC as OUTPUT
 			}
 			*(myports[i]) |= (1<<pin[i]);
 			i++;
 			if ( i == 16 ) {
-				StepTurn=10;
+				StepTurn=40;
+				NextStepTime+=d*8;
 				i=0;
 			}
 			break;
 
 			case 10:
 			if ( i < 16 ) *(myports[i]) &= ~(1<<pin[i]);
-			if ( i > 3 ) *(myports[i-4]) |= (1<<pin[i-4]);
+			if ( i > 2 ) *(myports[i-3]) |= (1<<pin[i-3]);
 			i++;
-			if ( i == 20 ) {
+			if ( i == 19 ) {
+				StepTurn=20;
+				i=0;
+			}
+			break;
+
+			case 20:
+			if ( i < 16 ) *(myports[i]) &= ~(1<<pin[i]);
+			if ( i > 2 ) *(myports[i-3]) |= (1<<pin[i-3]);
+			i++;
+			if ( i == 19 ) {
 				StepTurn=40;
 				i=0;
 			}
@@ -173,21 +165,21 @@ void Effect(void)
 			*(myports[i]) &= ~(1<<pin[i]);
 			i++;
 			if ( i == 16 ) {
-				StepTurn=0;
+				StepTurn=100;
 				i=0;
-				TurnTime+=d*31;
 			}
 			break;
 			
 			default:
 			StepTurn=100;
 		}
-		TurnTime+=d;
+		NextStepTime+=d;
 	}
 }
 
 void AutoAdjust(void)
 {
-	
-	return;
+	unsigned long int Time;
+	Time=(StopTime-StartTime);
+	if ( (Time > 976) && (Time<7812) )d=Time/40;
 }

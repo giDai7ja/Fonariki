@@ -5,3 +5,8 @@
 *.srec
 *.o
 *.elf
+ATmega8/ATmega8/Release/ATmega8.elf
+ATmega8/ATmega8/Release/ATmega8.lss
+ATmega8/ATmega8/Release/ATmega8.lss
+ATmega8/ATmega8/Release/ATmega8.map
+ATmega8/ATmega8/Release/ATmega8.srec

@@ -1,18 +1,23 @@
 Archive member included to satisfy reference by file (symbol)
 
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+                              main.o (__udivmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
                               C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o (exit)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_copy_data.o)
                               main.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
                               main.o (__do_clear_bss)
+C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+                              main.o (eeprom_read_byte)
+C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
+                              main.o (eeprom_update_byte)
 
 Allocating common symbols
 Common symbol       size              file
 
-TurnTime            0x2               main.o
 j                   0x1               main.o
-SYS_TIK             0x2               main.o
+d_eeprom            0x1               main.o
 i                   0x1               main.o
 d                   0x1               main.o
 
@@ -23,8 +28,20 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text.AutoAdjust
-                0x00000000        0x2 main.o
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
@@ -73,6 +90,12 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .text          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
+ .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
+ .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
 
 Memory Configuration
 
@@ -197,7 +220,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x254
+.text           0x00000000      0x520
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
                 0x00000000                __vector_default
@@ -277,20 +300,33 @@ END GROUP
                 0x0000005e                . = ALIGN (0x2)
  *(.text.*)
  .text.__vector_9
-                0x0000005e       0x2e main.o
+                0x0000005e       0x4a main.o
                 0x0000005e                __vector_9
- .text.Init     0x0000008c       0x24 main.o
-                0x0000008c                Init
- .text.Effect   0x000000b0      0x19a main.o
-                0x000000b0                Effect
+ .text.Init     0x000000a8       0x1a main.o
+                0x000000a8                Init
+ .text.Effect   0x000000c2      0x2a4 main.o
+                0x000000c2                Effect
+ .text.AutoAdjust
+                0x00000366       0x5a main.o
+                0x00000366                AutoAdjust
  .text.startup.main
-                0x0000024a        0x6 main.o
-                0x0000024a                main
-                0x00000250                . = ALIGN (0x2)
+                0x000003c0       0xe6 main.o
+                0x000003c0                main
+ .text.libgcc.div
+                0x000004a6       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+                0x000004a6                __udivmodsi4
+ .text.avr-libc
+                0x000004ea       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+                0x000004ea                eeprom_read_byte
+ .text.avr-libc
+                0x000004fa       0x22 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
+                0x000004fa                eeprom_update_byte
+                0x000004fc                eeprom_update_r18
+                0x0000051c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000250        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000250                _exit
-                0x00000250                exit
+ .fini9         0x0000051c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x0000051c                _exit
+                0x0000051c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -309,11 +345,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000250        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x0000051c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000254                _etext = .
+                0x00000520                _etext = .
 
-.data           0x00800060       0x30 load address 0x00000254
+.data           0x00800060       0x30 load address 0x00000520
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -329,28 +365,39 @@ END GROUP
                 0x00800090                _edata = .
                 0x00800090                PROVIDE (__data_end, .)
 
-.bss            0x00800090        0x8
+.bss            0x00800090       0x19
                 0x00800090                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.StepTurn  0x00800090        0x1 main.o
                 0x00800090                StepTurn
+ .bss.SaveTime  0x00800091        0x4 main.o
+                0x00800091                SaveTime
+ .bss.StopTime  0x00800095        0x4 main.o
+                0x00800095                StopTime
+ .bss.StartTime
+                0x00800099        0x4 main.o
+                0x00800099                StartTime
+ .bss.NextStepTime
+                0x0080009d        0x4 main.o
+                0x0080009d                NextStepTime
+ .bss.SYS_TIK   0x008000a1        0x4 main.o
+                0x008000a1                SYS_TIK
  *(COMMON)
- COMMON         0x00800091        0x7 main.o
-                0x00800091                TurnTime
-                0x00800093                j
-                0x00800094                SYS_TIK
-                0x00800096                i
-                0x00800097                d
-                0x00800098                PROVIDE (__bss_end, .)
-                0x00000254                __data_load_start = LOADADDR (.data)
-                0x00000284                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000a5        0x4 main.o
+                0x008000a5                j
+                0x008000a6                d_eeprom
+                0x008000a7                i
+                0x008000a8                d
+                0x008000a9                PROVIDE (__bss_end, .)
+                0x00000520                __data_load_start = LOADADDR (.data)
+                0x00000550                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800098        0x0
+.noinit         0x008000a9        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800098                _end = .
+                0x008000a9                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x1
@@ -417,23 +464,33 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges
+.debug_aranges  0x00000000       0x40
  *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .debug_aranges
+                0x00000020       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x48c
+.debug_info     0x00000000      0x5e1
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
+ .debug_info    0x0000048c       0xaa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .debug_info    0x00000536       0xab C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
 
-.debug_abbrev   0x00000000      0x44e
+.debug_abbrev   0x00000000      0x476
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
+ .debug_abbrev  0x0000044e       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .debug_abbrev  0x00000462       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
 
-.debug_line     0x00000000      0x109
+.debug_line     0x00000000      0x233
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x109 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
+ .debug_line    0x00000109       0x7a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+ .debug_line    0x00000183       0xb0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
 
 .debug_frame
  *(.debug_frame)
