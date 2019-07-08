@@ -10,3 +10,11 @@ ATmega8/ATmega8/Release/ATmega8.lss
 ATmega8/ATmega8/Release/ATmega8.lss
 ATmega8/ATmega8/Release/ATmega8.map
 ATmega8/ATmega8/Release/ATmega8.srec
+ATmega8/.vs/ATmega8/v14/.atsuo
+*.elf
+*.hex
+*.lss
+*.map
+*.srec
+*.d
+*.o

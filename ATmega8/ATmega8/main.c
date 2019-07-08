@@ -3,13 +3,15 @@
 *
 * Created: 24.11.2018 13:25:45
 * Author : Peppa
+*
+* Fuses (E:FF, H:D1, L:81)
+*
 */
-
-#define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
+#include <avr/sleep.h>
 
 //#define F_CPU 8000000UL
 unsigned char D1 EEMEM;
@@ -75,30 +77,33 @@ int main(void)
 	Init();
 	while (1)
 	{
-		while ( !(PIND & (1<<PIND2)) || ((StartTime+400)>SYS_TIK) )
+		while (!(PIND&(1<<PIND2)) || ((StartTime+400)>SYS_TIK))
 		{
 			Effect();
+			sleep_enable();
+			sleep_cpu();
 		}
 		PORTB = 0;
 		PORTD = 0;
 		PORTC = 0;
-		DDRB = 0;  // PORTB as INTPUT
-		DDRD = 0;  // PORTD as INTPUT
-		DDRC = 0;  // PORTC as INTPUT
+		//		DDRB = 0;  // PORTB as INTPUT
+		//		DDRD = 0;  // PORTD as INTPUT
+		//		DDRC = 0;  // PORTC as INTPUT
 		StopTime=SYS_TIK;
 		StepTurn=0;
 		i=0;
+		
 		AutoAdjust();
-		SaveTime=StopTime+11718;
-		while ( (PIND & (1<<PIND2)) )
+		
+		SaveTime=StopTime+11718; // 3 секунды до сохранения в EEPROM
+		while ((PIND&(1<<PIND2)) || ((StopTime+400)>SYS_TIK))
 		{
-			if ( (SaveTime<SYS_TIK) && (d_eeprom != d ) ) {
+			if ((SaveTime<SYS_TIK) && (d_eeprom!=d)) {
 				eeprom_update_byte(&D1, d);
 				d_eeprom=d;
-				//				DDRB = 0x07;
-				//				PORTB = 0x07;
 			}
-			_NOP();
+			sleep_enable();
+			sleep_cpu();
 		}
 		
 	}
@@ -109,10 +114,11 @@ void Init()
 	d_eeprom = eeprom_read_byte(&D1);
 	d = d_eeprom;
 
-	TCCR0 = (1<<CS01); // CLK/8
+	TCCR0 = (1<<CS00); // CLK
 	TIMSK = (1<<TOIE0);
 	
 	sei();
+	set_sleep_mode(SLEEP_MODE_IDLE);
 }
 
 void Effect(void)
@@ -121,7 +127,7 @@ void Effect(void)
 		switch(StepTurn)
 		{
 			case 0:
-			if ( i == 0 ) {
+			if (i==0) {
 				NextStepTime=SYS_TIK;
 				StartTime=SYS_TIK;
 				StopTime=SYS_TIK;
@@ -134,7 +140,7 @@ void Effect(void)
 			}
 			*(myports[i]) |= (1<<pin[i]);
 			i++;
-			if ( i == 16 ) {
+			if (i==16) {
 				StepTurn=40;
 				NextStepTime+=d*8;
 				i=0;
@@ -164,7 +170,7 @@ void Effect(void)
 			case 40:
 			*(myports[i]) &= ~(1<<pin[i]);
 			i++;
-			if ( i == 16 ) {
+			if (i==16) {
 				StepTurn=100;
 				i=0;
 			}
@@ -181,5 +187,5 @@ void AutoAdjust(void)
 {
 	unsigned long int Time;
 	Time=(StopTime-StartTime);
-	if ( (Time > 976) && (Time<7812) )d=Time/40;
+	if ((Time>976) && (Time<7812))d=Time/40;
 }
