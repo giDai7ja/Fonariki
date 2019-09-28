@@ -220,7 +220,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x550
+.text           0x00000000      0x6b2
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4/crtatmega8a.o
                 0x00000000                __vector_default
@@ -302,31 +302,35 @@ END GROUP
  .text.__vector_9
                 0x0000005e       0x4a main.o
                 0x0000005e                __vector_9
- .text.Init     0x000000a8       0x1e main.o
+ .text.Init     0x000000a8       0x2e main.o
                 0x000000a8                Init
- .text.Effect   0x000000c6      0x2a4 main.o
-                0x000000c6                Effect
+ .text.Effect_A
+                0x000000d6      0x2a4 main.o
+                0x000000d6                Effect_A
+ .text.Effect_B
+                0x0000037a      0x146 main.o
+                0x0000037a                Effect_B
  .text.AutoAdjust
-                0x0000036a       0x5a main.o
-                0x0000036a                AutoAdjust
+                0x000004c0       0x5a main.o
+                0x000004c0                AutoAdjust
  .text.startup.main
-                0x000003c4      0x112 main.o
-                0x000003c4                main
+                0x0000051a      0x11e main.o
+                0x0000051a                main
  .text.libgcc.div
-                0x000004d6       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
-                0x000004d6                __udivmodsi4
+                0x00000638       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodsi4.o)
+                0x00000638                __udivmodsi4
  .text.avr-libc
-                0x0000051a       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
-                0x0000051a                eeprom_read_byte
+                0x0000067c       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eerd_byte.o)
+                0x0000067c                eeprom_read_byte
  .text.avr-libc
-                0x0000052a       0x22 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
-                0x0000052a                eeprom_update_byte
-                0x0000052c                eeprom_update_r18
-                0x0000054c                . = ALIGN (0x2)
+                0x0000068c       0x22 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega8a/avr4\libatmega8a.a(eeupd_byte.o)
+                0x0000068c                eeprom_update_byte
+                0x0000068e                eeprom_update_r18
+                0x000006ae                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000054c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x0000054c                _exit
-                0x0000054c                exit
+ .fini9         0x000006ae        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x000006ae                _exit
+                0x000006ae                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -345,11 +349,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000054c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x000006ae        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000550                _etext = .
+                0x000006b2                _etext = .
 
-.data           0x00800060       0x30 load address 0x00000550
+.data           0x00800060       0x30 load address 0x000006b2
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -365,39 +369,41 @@ END GROUP
                 0x00800090                _edata = .
                 0x00800090                PROVIDE (__data_end, .)
 
-.bss            0x00800090       0x19
+.bss            0x00800090       0x1a
                 0x00800090                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.StepTurn  0x00800090        0x1 main.o
-                0x00800090                StepTurn
- .bss.SaveTime  0x00800091        0x4 main.o
-                0x00800091                SaveTime
- .bss.StopTime  0x00800095        0x4 main.o
-                0x00800095                StopTime
+ .bss.EN        0x00800090        0x1 main.o
+                0x00800090                EN
+ .bss.StepTurn  0x00800091        0x1 main.o
+                0x00800091                StepTurn
+ .bss.SaveTime  0x00800092        0x4 main.o
+                0x00800092                SaveTime
+ .bss.StopTime  0x00800096        0x4 main.o
+                0x00800096                StopTime
  .bss.StartTime
-                0x00800099        0x4 main.o
-                0x00800099                StartTime
+                0x0080009a        0x4 main.o
+                0x0080009a                StartTime
  .bss.NextStepTime
-                0x0080009d        0x4 main.o
-                0x0080009d                NextStepTime
- .bss.SYS_TIK   0x008000a1        0x4 main.o
-                0x008000a1                SYS_TIK
+                0x0080009e        0x4 main.o
+                0x0080009e                NextStepTime
+ .bss.SYS_TIK   0x008000a2        0x4 main.o
+                0x008000a2                SYS_TIK
  *(COMMON)
- COMMON         0x008000a5        0x4 main.o
-                0x008000a5                j
-                0x008000a6                d_eeprom
-                0x008000a7                i
-                0x008000a8                d
-                0x008000a9                PROVIDE (__bss_end, .)
-                0x00000550                __data_load_start = LOADADDR (.data)
-                0x00000580                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000a6        0x4 main.o
+                0x008000a6                j
+                0x008000a7                d_eeprom
+                0x008000a8                i
+                0x008000a9                d
+                0x008000aa                PROVIDE (__bss_end, .)
+                0x000006b2                __data_load_start = LOADADDR (.data)
+                0x000006e2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000a9        0x0
+.noinit         0x008000aa        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008000a9                _end = .
+                0x008000aa                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x1

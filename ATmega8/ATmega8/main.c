@@ -20,7 +20,7 @@ unsigned long int SYS_TIK=0;
 unsigned long int NextStepTime=0;
 unsigned long int StartTime=0, StopTime=0, SaveTime=0;
 
-unsigned char StepTurn = 0;
+unsigned char StepTurn = 0, EN = 0;
 
 unsigned char d, d_eeprom;
 uint8_t i,j;
@@ -68,7 +68,8 @@ ISR(TIMER0_OVF_vect){
 }
 
 void Init();
-void Effect(void);
+void Effect_A(void);
+void Effect_B(void);
 void AutoAdjust(void);
 
 
@@ -79,7 +80,8 @@ int main(void)
 	{
 		while (!(PIND&(1<<PIND2)) || ((StartTime+400)>SYS_TIK))
 		{
-			Effect();
+			if ( EN == 0 ) Effect_A();
+			else Effect_B();
 			sleep_enable();
 			sleep_cpu();
 		}
@@ -113,6 +115,10 @@ void Init()
 {
 	d_eeprom = eeprom_read_byte(&D1);
 	d = d_eeprom;
+	PORTB = (1<<PORTB3);
+	DDRB = 0;
+	
+	if (PINB&(1<<PINB3)) EN=1;
 
 	TCCR0 = (1<<CS00); // CLK
 	TIMSK = (1<<TOIE0);
@@ -121,7 +127,7 @@ void Init()
 	set_sleep_mode(SLEEP_MODE_IDLE);
 }
 
-void Effect(void)
+void Effect_A(void)
 {
 	if (NextStepTime <= SYS_TIK) {
 		switch(StepTurn)
@@ -142,7 +148,7 @@ void Effect(void)
 			i++;
 			if (i==16) {
 				StepTurn=40;
-				NextStepTime+=d*8;
+				NextStepTime+=d*7;
 				i=0;
 			}
 			break;
@@ -180,6 +186,40 @@ void Effect(void)
 			StepTurn=100;
 		}
 		NextStepTime+=d;
+	}
+}
+
+
+void Effect_B(void)
+{
+	if (NextStepTime <= SYS_TIK) {
+		switch(StepTurn)
+		{
+			case 0:
+			if (i==0) {
+				NextStepTime=SYS_TIK;
+				StartTime=SYS_TIK;
+				StopTime=SYS_TIK;
+				PORTB = 0;
+				PORTD = 0;
+				PORTC = 0;
+				DDRB = 0x07;  // PORTB as OUTPUT
+				DDRD = 0xFB;  // PORTD as OUTPUT
+				DDRC = 0x3F;  // PORTC as OUTPUT
+			}
+			*(myports[i]) |= (1<<pin[i]);
+			i++;
+			if (i==16) {
+				StepTurn=100;
+				NextStepTime+=d*8;
+				i=0;
+			}
+			break;
+			
+			default:
+			StepTurn=100;
+		}
+		NextStepTime+=d*2;
 	}
 }
 
